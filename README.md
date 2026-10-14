@@ -12,8 +12,9 @@ Clean caches, remove apps with their leftovers, and see what fills your disk, al
 ![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-3D8BFF)
 ![Mole 1.59+](https://img.shields.io/badge/Mole-1.59%2B-3DDC97)
 ![Apple Silicon and Intel](https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-supported-7C6CFF)
+[![License: MIT](https://img.shields.io/badge/License-MIT-FFB547)](LICENSE)
 
-[Features](#features) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development)
+[Features](#features) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development) · [License](#license)
 
 <br>
 
@@ -183,7 +184,13 @@ To run the app on demo data, as in the screenshots, point it at the fake CLI wit
 
 The interface follows the handoff in [`digby-handoff/`](digby-handoff/): the brief in [PROMPT.md](digby-handoff/PROMPT.md) and an interactive reference you can open in a browser (`digby-handoff/design/Digby.html`). Design decisions that differ from the reference are listed in [NOTES.md](NOTES.md#design-deviations).
 
+## License
+
+Digby is released under the [MIT License](LICENSE).
+
+[Mole](https://github.com/tw93/mole) is a separate project by tw93 and contributors, licensed under GPL-3.0. Digby does not bundle or link Mole's code; it runs the `mo` command you install yourself.
+
 ## Credits
 
-- [Mole](https://github.com/tw93/mole) by tw93 and contributors does all the cleaning, under its own license.
+- [Mole](https://github.com/tw93/mole) by tw93 and contributors does all the cleaning.
 - [Familjen Grotesk](https://fonts.google.com/specimen/Familjen+Grotesk) and [JetBrains Mono](https://www.jetbrains.com/lp/mono/) are bundled under the SIL Open Font License (`Digby/Resources/Fonts`).
