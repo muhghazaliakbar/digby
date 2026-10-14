@@ -14,11 +14,19 @@
 			remoteGlobalIDString = D1B000000000000000000010;
 			remoteInfo = Digby;
 		};
+		D1B000000000000000000060 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1B000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D1B000000000000000000010;
+			remoteInfo = Digby;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D1B000000000000000000004 /* Digby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Digby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B000000000000000000005 /* DigbyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DigbyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1B000000000000000000050 /* DigbyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DigbyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -30,6 +38,11 @@
 		D1B000000000000000000007 /* DigbyTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = DigbyTests;
+			sourceTree = "<group>";
+		};
+		D1B000000000000000000051 /* DigbyUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = DigbyUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -49,6 +62,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D1B000000000000000000053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -57,6 +77,7 @@
 			children = (
 				D1B000000000000000000006 /* Digby */,
 				D1B000000000000000000007 /* DigbyTests */,
+				D1B000000000000000000051 /* DigbyUITests */,
 				D1B000000000000000000003 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,6 +87,7 @@
 			children = (
 				D1B000000000000000000004 /* Digby.app */,
 				D1B000000000000000000005 /* DigbyTests.xctest */,
+				D1B000000000000000000050 /* DigbyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,6 +136,27 @@
 			productReference = D1B000000000000000000005 /* DigbyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D1B000000000000000000055 /* DigbyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1B000000000000000000056 /* Build configuration list for PBXNativeTarget "DigbyUITests" */;
+			buildPhases = (
+				D1B000000000000000000052 /* Sources */,
+				D1B000000000000000000053 /* Frameworks */,
+				D1B000000000000000000054 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D1B000000000000000000061 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D1B000000000000000000051 /* DigbyUITests */,
+			);
+			name = DigbyUITests;
+			productName = DigbyUITests;
+			productReference = D1B000000000000000000050 /* DigbyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -128,6 +171,10 @@
 						CreatedOnToolsVersion = 27.0;
 					};
 					D1B000000000000000000014 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = D1B000000000000000000010;
+					};
+					D1B000000000000000000055 = {
 						CreatedOnToolsVersion = 27.0;
 						TestTargetID = D1B000000000000000000010;
 					};
@@ -149,6 +196,7 @@
 			targets = (
 				D1B000000000000000000010 /* Digby */,
 				D1B000000000000000000014 /* DigbyTests */,
+				D1B000000000000000000055 /* DigbyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -162,6 +210,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D1B000000000000000000017 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1B000000000000000000054 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -185,6 +240,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D1B000000000000000000052 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -192,6 +254,11 @@
 			isa = PBXTargetDependency;
 			target = D1B000000000000000000010 /* Digby */;
 			targetProxy = D1B000000000000000000020 /* PBXContainerItemProxy */;
+		};
+		D1B000000000000000000061 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D1B000000000000000000010 /* Digby */;
+			targetProxy = D1B000000000000000000060 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -342,6 +409,36 @@
 			};
 			name = Release;
 		};
+		D1B000000000000000000057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.muhghazaliakbar.DigbyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_VERSION = 6.0;
+				TEST_TARGET_NAME = Digby;
+			};
+			name = Debug;
+		};
+		D1B000000000000000000058 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.muhghazaliakbar.DigbyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_VERSION = 6.0;
+				TEST_TARGET_NAME = Digby;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -368,6 +465,15 @@
 			buildConfigurations = (
 				D1B000000000000000000044 /* Debug */,
 				D1B000000000000000000045 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1B000000000000000000056 /* Build configuration list for PBXNativeTarget "DigbyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1B000000000000000000057 /* Debug */,
+				D1B000000000000000000058 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

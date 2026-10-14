@@ -113,7 +113,7 @@ nonisolated enum CleanListParser {
     }
 
     static var defaultURL: URL {
-        URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(".config/mole/clean-list.txt")
+        WhitelistGuard.directory.appendingPathComponent("clean-list.txt")
     }
 
     static func parse(_ text: String) -> [Section] {

@@ -39,6 +39,17 @@
                ReferencedContainer = "container:Digby.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D1B000000000000000000055"
+               BuildableName = "DigbyUITests.xctest"
+               BlueprintName = "DigbyUITests"
+               ReferencedContainer = "container:Digby.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

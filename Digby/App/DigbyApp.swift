@@ -135,7 +135,6 @@ struct WindowConfigurator: NSViewRepresentable {
             window.titlebarAppearsTransparent = true
             window.titleVisibility = .hidden
             window.styleMask.insert(.fullSizeContentView)
-            window.isMovableByWindowBackground = true
             window.backgroundColor = NSColor(red: 0x0E / 255, green: 0x10 / 255, blue: 0x13 / 255, alpha: 1)
             window.appearance = NSAppearance(named: .darkAqua)
             for name in [NSWindow.didResizeNotification, NSWindow.didBecomeKeyNotification, NSWindow.didEndLiveResizeNotification, NSWindow.didExitFullScreenNotification] {

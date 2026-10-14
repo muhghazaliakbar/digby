@@ -4,7 +4,13 @@ import Foundation
 /// To honour unchecked rows, Digby appends them to the whitelist for the duration of one run
 /// and restores the user's file afterwards (also on next launch if the app quit mid-run).
 nonisolated enum WhitelistGuard {
-    static var directory: URL { URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(".config/mole") }
+    /// Mole's config folder. `-moleConfigDir <path>` overrides it (used by the UI tests' fake `mo`).
+    static var directory: URL {
+        if let custom = UserDefaults.standard.string(forKey: "moleConfigDir"), !custom.isEmpty {
+            return URL(fileURLWithPath: custom)
+        }
+        return URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(".config/mole")
+    }
     static var file: URL { directory.appendingPathComponent("whitelist") }
     static var backup: URL { directory.appendingPathComponent(".digby-whitelist-backup") }
     static var marker: URL { directory.appendingPathComponent(".digby-whitelist-marker") }

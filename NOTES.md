@@ -40,8 +40,15 @@ Sizes are Mole's `bytes_to_human` output, which uses decimal units (1 GB = 10⁹
 - **Toast text.** Purge, Installers and Uninstall toasts say "to Trash" rather than "freed", because space is only reclaimed once the Trash is emptied.
 - **Motion.** Looping effects (ripples, halo, comet, orbit, shimmer, spinner, live dot) run as Core Animation layers so idle CPU stays near zero; one-shot transitions use SwiftUI springs and curves with the reference's timings. Reduce Motion disables movement.
 
+## Tests
+
+- `DigbyTests`: parsers for every command, JSON payloads, whitelist contents, formatting, treemap layout.
+- `DigbyUITests`: the Clean flow (scan, review, unchecking, select all/none, dry-run preview, real run, stop, empty result) against `fake-mo.sh`. The XCTest runner is sandboxed and cannot read the app's files, so checks go through the UI: the fake leaves whitelisted paths out of its totals, so the sizes Digby shows prove that exclusions reached Mole and that the whitelist was restored. Each run leaves an empty folder under `/tmp/digby-ui-*`.
+- On macOS, UI tests must use `click()`; `tap()` does not trigger SwiftUI buttons.
+
+The real Clean flow was also verified end to end against Mole 1.59.1 in dry-run mode.
+
 ## Not yet done
 
-- UI tests for the Clean flow (the flow was verified end to end against Mole 1.59.1 in dry-run mode).
 - Menu bar extra (phase 2 in the brief).
 - Side-by-side screenshots against the design reference.

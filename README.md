@@ -32,13 +32,15 @@ Or from the command line:
 xcodebuild -project Digby.xcodeproj -scheme Digby -configuration Release build
 ```
 
-Run the parser and helper tests:
+Run the tests (parser unit tests plus UI tests for the Clean flow):
 
 ```bash
 xcodebuild -project Digby.xcodeproj -scheme Digby test
 ```
 
-Launch arguments that mirror the design reference's props: `-startView status|clean|uninstall|optimize|purge|installers|analyze` and `-showTerminal YES`.
+The UI tests drive the app against `DigbyUITests/fake-mo.sh`, which replays real Mole output, so they run in seconds and never scan or remove anything. The first run asks macOS to allow UI automation.
+
+Launch arguments that mirror the design reference's props: `-startView status|clean|uninstall|optimize|purge|installers|analyze` and `-showTerminal YES`. For testing, `-moBinaryPath <path>` picks the `mo` binary and `-moleConfigDir <path>` redirects Mole's config folder.
 
 ## Keyboard
 
@@ -71,6 +73,7 @@ Digby/
   Features/    One model + view per module
   Resources/   Familjen Grotesk and JetBrains Mono (SIL OFL)
 DigbyTests/    Parser and helper tests (Swift Testing)
+DigbyUITests/  Clean flow UI tests and the fake mo they run against
 digby-handoff/ Design brief and interactive HTML reference
 ```
 

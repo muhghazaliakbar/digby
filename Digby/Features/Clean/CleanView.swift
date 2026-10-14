@@ -51,6 +51,8 @@ private struct CleanCenteredView: View {
                     if showCheck { DrawnCheck().padding(.bottom, 2) }
                     CountingText(value: ringValue) { Fmt.size($0) }
                         .counting(ringValue, duration: phase == .done ? 1.0 : 0.35)
+                        .accessibilityLabel(Fmt.size(ringValue))
+                        .accessibilityIdentifier("clean.ringValue")
                         .font(Fonts.mono(40, .medium))
                         .tracking(-1.5)
                         .foregroundStyle(DS.textPrimary)
@@ -100,6 +102,7 @@ private struct CleanCenteredView: View {
     private var text: some View {
         VStack(spacing: 8) {
             Text(headline)
+                .accessibilityIdentifier("clean.headline")
                 .font(Fonts.ui(28, .semibold))
                 .tracking(-0.4)
                 .multilineTextAlignment(.center)
@@ -154,14 +157,16 @@ private struct CleanCenteredView: View {
             case .idle:
                 ScanButton(action: model.startScan)
             case .scanning:
-                StopButton(action: model.cancel).pop(duration: 0.4)
+                StopButton(action: model.cancel).accessibilityIdentifier("clean.stop").pop(duration: 0.4)
             case .done, .empty:
                 if phase == .done && model.lastDry {
                     Button("Back to results", action: model.backToResults)
+                        .accessibilityIdentifier("clean.backToResults")
                         .buttonStyle(PillButtonStyle(kind: .primary, height: 44, fontSize: 15, glow: false))
                         .rise(0.3)
                 }
                 Button("Scan again", action: model.startScan)
+                    .accessibilityIdentifier("clean.scanAgain")
                     .buttonStyle(PillButtonStyle(kind: .secondary, height: 44, fontSize: 15))
                     .rise(0.4)
             default:
@@ -281,12 +286,15 @@ private struct CleanResultsView: View {
     private var footer: some View {
         HStack(spacing: 14) {
             ToggleSwitch(isOn: model.dryRun) { model.dryRun.toggle() }
+                .accessibilityIdentifier("clean.dryRun")
+                .accessibilityValue(model.dryRun ? "on" : "off")
             VStack(alignment: .leading, spacing: 1) {
                 Text("Dry run").font(Fonts.ui(13.5, .medium))
                 Text("Preview only, nothing is deleted").font(Fonts.ui(12)).foregroundStyle(DS.textMuted)
             }
             Spacer()
             Text("\(model.selectedCount) of \(model.itemCount) locations").font(Fonts.ui(13)).foregroundStyle(DS.textMuted)
+                .accessibilityIdentifier("clean.summary")
             Button(action: model.startClean) {
                 HStack(spacing: 0) {
                     Text(model.dryRun ? "Preview " : "Clean ")
@@ -296,6 +304,8 @@ private struct CleanResultsView: View {
             .buttonStyle(PillButtonStyle(kind: model.dryRun ? .muted : .primary, enabled: model.selectedTotal > 0))
             .disabled(model.selectedTotal <= 0)
             .animation(.easeOut(duration: 0.25), value: model.dryRun)
+            .accessibilityIdentifier("clean.run")
+            .accessibilityLabel("\(model.dryRun ? "Preview" : "Clean") \(Fmt.size(model.selectedTotal))")
         }
         .padding(.horizontal, 24)
         .frame(height: 68)
@@ -329,6 +339,8 @@ private struct CategoryRow: View {
                 Button { withAnimation(Motion.bouncy) { model.toggle(category) } } label: {
                     Checkbox(state: state)
                 }
+                .accessibilityIdentifier("clean.category.checkbox.\(category.name)")
+                .accessibilityValue(state == .all ? "all" : state == .some ? "some" : "none")
                 .buttonStyle(PressStyle(scale: 0.8))
 
                 RoundedRectangle(cornerRadius: 3).fill(category.color)
@@ -358,6 +370,8 @@ private struct CategoryRow: View {
             .contentShape(Rectangle())
             .hoverBackground(open ? DS.surfaceHover : .clear, DS.surfaceHover)
             .onTapGesture { model.toggleOpen(category) }
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("clean.category.\(category.name)")
 
             if open {
                 VStack(spacing: 0) {
@@ -401,6 +415,11 @@ private struct ItemRow: View {
         .contentShape(Rectangle())
         .hoverBackground(.clear, DS.surfaceRaised, radius: 7)
         .onTapGesture { withAnimation(Motion.bouncy) { model.toggle(item) } }
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel(item.path)
+        .accessibilityValue(on ? "checked" : "unchecked")
+        .accessibilityIdentifier("clean.item.\(item.path)")
         .help(item.excludable ? item.path : "Mole cleans this location as a whole")
     }
 }
@@ -415,6 +434,7 @@ private struct ScanButton: View {
         ZStack {
             RippleRings().frame(width: 128, height: 48)
             Button("Scan", action: action)
+                .accessibilityIdentifier("clean.scan")
                 .buttonStyle(PillButtonStyle(kind: .primary, height: 48, fontSize: 16, horizontal: 38, hoverScale: 1.03))
                 .pop(0.15)
         }
