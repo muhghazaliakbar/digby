@@ -66,6 +66,11 @@ struct MenuBarPanel: View {
             MenuRowButton(title: "Status", shortcut: "⌘1") { open(.status) }
             MenuRowButton(title: "Analyze", shortcut: "⌘7") { open(.analyze) }
             Spacer()
+            MenuRowButton(title: "About", shortcut: "") {
+                openWindow(id: "about")
+                NSApp.activate()
+                dismiss()
+            }
             MenuRowButton(title: "Quit", shortcut: "⌘Q") { NSApp.terminate(nil) }
                 .keyboardShortcut("q", modifiers: .command)
                 .accessibilityIdentifier("menubar.quit")

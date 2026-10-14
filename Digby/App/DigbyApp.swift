@@ -22,9 +22,7 @@ struct DigbyApp: App {
         .windowResizability(.contentMinSize)
         .defaultSize(width: 1280, height: 820)
         .commands {
-            CommandGroup(replacing: .appInfo) {
-                Button("About Digby") { AboutPanel.show() }
-            }
+            AboutCommands()
             CommandGroup(replacing: .newItem) {}
             CommandMenu("Modules") {
                 ForEach(Module.allCases) { module in
@@ -47,6 +45,13 @@ struct DigbyApp: App {
             }
         }
 
+        Window("About Digby", id: "about") {
+            AboutView()
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        .defaultPosition(.center)
+
         MenuBarExtra(isInserted: $showMenuBarExtra) {
             MenuBarPanel()
                 .environment(app)
@@ -54,28 +59,6 @@ struct DigbyApp: App {
             MenuBarLabel(disk: app.disk, showsFree: menuBarShowsFree)
         }
         .menuBarExtraStyle(.window)
-    }
-}
-
-enum AboutPanel {
-    static func show() {
-        let credits = NSMutableAttributedString(
-            string: "Digby is an independent GUI for the open-source Mole CLI by tw93. Not affiliated with Mole or mole.fit.\n\n",
-            attributes: [.font: NSFont.systemFont(ofSize: 11), .foregroundColor: NSColor.secondaryLabelColor]
-        )
-        credits.append(NSAttributedString(
-            string: "github.com/tw93/mole",
-            attributes: [.link: URL(string: "https://github.com/tw93/mole")!, .font: NSFont.systemFont(ofSize: 11)]
-        ))
-        credits.append(NSAttributedString(
-            string: "\n\nFonts: Familjen Grotesk and JetBrains Mono (SIL Open Font License).",
-            attributes: [.font: NSFont.systemFont(ofSize: 11), .foregroundColor: NSColor.secondaryLabelColor]
-        ))
-        let style = NSMutableParagraphStyle()
-        style.alignment = .center
-        credits.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: credits.length))
-        NSApp.orderFrontStandardAboutPanel(options: [.credits: credits, .applicationName: "Digby"])
-        NSApp.activate()
     }
 }
 

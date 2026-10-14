@@ -15,7 +15,7 @@ Clean caches, remove apps with their leftovers, and see what fills your disk, al
 [![License: MIT](https://img.shields.io/badge/License-MIT-FFB547)](LICENSE)
 [![CI](https://github.com/muhghazaliakbar/digby/actions/workflows/ci.yml/badge.svg)](https://github.com/muhghazaliakbar/digby/actions/workflows/ci.yml)
 
-[Features](#features) · [Download](#2-download-digby) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development) · [License](#license)
+[Features](#features) · [Download](#2-download-digby) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development) · [Support](#support)
 
 <br>
 
@@ -216,6 +216,14 @@ To run the app on demo data, as in the screenshots, point it at the fake CLI wit
 ### Design
 
 The interface follows the handoff in [`digby-handoff/`](digby-handoff/): the brief in [PROMPT.md](digby-handoff/PROMPT.md) and an interactive reference you can open in a browser (`digby-handoff/design/Digby.html`). Design decisions that differ from the reference are listed in [NOTES.md](NOTES.md#design-deviations).
+
+## Support
+
+Digby is free and open source. If it frees up space on your Mac, you can say thanks with a coffee.
+
+<a href="https://buymeacoffee.com/muhghazaliakbar"><img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=0D0C22" alt="Buy me a coffee"></a>
+
+Made by [Muh Ghazali Akbar](https://justghali.dev). Bug reports and ideas are welcome in [Issues](https://github.com/muhghazaliakbar/digby/issues).
 
 ## License
 
