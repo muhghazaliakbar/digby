@@ -13,6 +13,7 @@ Clean caches, remove apps with their leftovers, and see what fills your disk, al
 ![Mole 1.59+](https://img.shields.io/badge/Mole-1.59%2B-3DDC97)
 ![Apple Silicon and Intel](https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-supported-7C6CFF)
 [![License: MIT](https://img.shields.io/badge/License-MIT-FFB547)](LICENSE)
+[![CI](https://github.com/muhghazaliakbar/digby/actions/workflows/ci.yml/badge.svg)](https://github.com/muhghazaliakbar/digby/actions/workflows/ci.yml)
 
 [Features](#features) · [Download](#2-download-digby) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development) · [License](#license)
 
@@ -170,16 +171,27 @@ DigbyTests/     Parser and helper unit tests (Swift Testing)
 DigbyUITests/   UI tests, plus the fake mo they run against
 digby-handoff/  Design brief and the interactive HTML reference
 docs/           README images
-scripts/        Release packaging
+scripts/        Release packaging and the icon generator
+.github/        CI and release workflows
 ```
 
 ### Releases
 
+Releases are built by GitHub Actions. Bump `MARKETING_VERSION` in the Xcode project, commit, then push a matching tag:
+
 ```bash
-scripts/release.sh
+git tag v0.2.0 && git push origin v0.2.0
 ```
 
-Builds a universal Release app and writes `dist/Digby-<version>.dmg`, a `.zip` and `SHA256SUMS.txt`. It signs ad-hoc by default; with a Developer ID certificate, set `SIGN_IDENTITY` and `NOTARY_PROFILE` to sign and notarize instead. The version comes from `MARKETING_VERSION` in the Xcode project.
+The [Release workflow](.github/workflows/release.yml) builds a universal app, packages `Digby-<version>.dmg`, a `.zip` and `SHA256SUMS.txt`, and publishes them as a GitHub release with install notes and a changelog. Running the workflow by hand (Actions → Release → Run workflow) builds the packages without publishing.
+
+Releases are signed ad-hoc unless these repository secrets are set, in which case they are signed with a Developer ID and notarized: `MACOS_CERTIFICATE` (base64 `.p12`), `MACOS_CERTIFICATE_PASSWORD`, `MACOS_SIGN_IDENTITY`, `APPLE_ID`, `APPLE_TEAM_ID` and `APPLE_APP_PASSWORD`.
+
+To package locally, run `scripts/release.sh` (output in `dist/`).
+
+The app icon is drawn by `swift scripts/make-icon.swift`, which writes every size into the asset catalog.
+
+[CI](.github/workflows/ci.yml) builds and runs the unit tests on every push and pull request.
 
 ### Tests
 

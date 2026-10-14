@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and unit tests
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Build
+        run: |
+          xcodebuild -project Digby.xcodeproj -scheme Digby -configuration Debug \
+            -derivedDataPath build/ci CODE_SIGN_IDENTITY=- build
+
+      # UI tests need the macOS automation permission, which hosted runners cannot grant;
+      # run them locally with `xcodebuild … test`.
+      - name: Unit tests
+        run: |
+          xcodebuild -project Digby.xcodeproj -scheme Digby \
+            -derivedDataPath build/ci CODE_SIGN_IDENTITY=- \
+            -only-testing:DigbyTests test
