@@ -14,7 +14,7 @@ Clean caches, remove apps with their leftovers, and see what fills your disk, al
 ![Apple Silicon and Intel](https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-supported-7C6CFF)
 [![License: MIT](https://img.shields.io/badge/License-MIT-FFB547)](LICENSE)
 
-[Features](#features) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development) · [License](#license)
+[Features](#features) · [Download](#2-download-digby) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development) · [License](#license)
 
 <br>
 
@@ -89,7 +89,6 @@ Digby also lives in the menu bar. The status item shows free space, and its pane
 
 - macOS 14 Sonoma or later, on Apple Silicon or Intel
 - [Mole](https://github.com/tw93/mole) 1.59 or later
-- Xcode 16 or later, to build from source
 
 ### 1. Install Mole
 
@@ -99,7 +98,20 @@ brew install mole
 
 No Homebrew? Use the install script from [Mole's README](https://github.com/tw93/mole#readme). If Digby can't find `mo`, it opens on a setup screen with both commands and a **Locate binary…** button.
 
-### 2. Build and run Digby
+### 2. Download Digby
+
+Grab **`Digby-x.y.z.dmg`** from the [latest release](https://github.com/muhghazaliakbar/digby/releases/latest), open it, and drag **Digby** into **Applications**. It is a universal app for Apple Silicon and Intel.
+
+> [!IMPORTANT]
+> Digby is not notarized by Apple yet, so the first launch is blocked with *"Apple could not verify Digby…"*. To allow it once:
+> 1. Open Digby and close the warning.
+> 2. Go to **System Settings → Privacy & Security**, scroll down, and click **Open Anyway** next to Digby.
+>
+> Or run `xattr -dr com.apple.quarantine /Applications/Digby.app` in Terminal. Each release lists SHA-256 checksums so you can verify the download.
+
+### Or build from source
+
+Requires Xcode 16 or later.
 
 ```bash
 git clone https://github.com/muhghazaliakbar/digby.git
@@ -158,7 +170,16 @@ DigbyTests/     Parser and helper unit tests (Swift Testing)
 DigbyUITests/   UI tests, plus the fake mo they run against
 digby-handoff/  Design brief and the interactive HTML reference
 docs/           README images
+scripts/        Release packaging
 ```
+
+### Releases
+
+```bash
+scripts/release.sh
+```
+
+Builds a universal Release app and writes `dist/Digby-<version>.dmg`, a `.zip` and `SHA256SUMS.txt`. It signs ad-hoc by default; with a Developer ID certificate, set `SIGN_IDENTITY` and `NOTARY_PROFILE` to sign and notarize instead. The version comes from `MARKETING_VERSION` in the Xcode project.
 
 ### Tests
 
