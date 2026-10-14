@@ -26,29 +26,30 @@ final class OptimizeModel {
 
     init(app: AppModel) { self.app = app }
 
-    /// Mirrors Mole's task catalog (lib/optimize/catalog.sh). Mole runs every task in one pass and
-    /// offers no per-task flag, so toggles are read-only; `mo optimize --whitelist` excludes tasks.
+    /// The tasks in Mole's optimize catalog (lib/optimize/catalog.sh). Names match the section headers
+    /// Mole prints, which is how progress is tracked; descriptions are Digby's own. Mole runs every task
+    /// in one pass and offers no per-task flag, so toggles are read-only; `mo optimize --whitelist` excludes tasks.
     static let catalog: [OptTask] = [
-        ("DNS & Spotlight Check", "Refresh DNS cache & verify Spotlight status", "opt_system_maintenance", true),
-        ("Finder Cache Refresh", "Refresh QuickLook thumbnails & icon services cache", "opt_cache_refresh", false),
-        ("App State Cleanup", "Remove old saved application states (30+ days)", "opt_saved_state_cleanup", false),
-        ("Broken Config Repair", "Fix corrupted preferences files", "opt_fix_broken_configs", false),
-        ("Network Cache Refresh", "Refresh DNS cache", "opt_network_optimization", true),
-        ("Database Optimization", "Compress SQLite databases for Mail, Safari & Messages (skips if apps are running)", "opt_sqlite_vacuum", false),
-        ("Prevent Finder .DS_Store", "Stop Finder writing .DS_Store on SMB/AFP/NFS and USB volumes", "opt_prevent_network_dsstore", false),
-        ("Legacy Overrides", "Remove hidden App Nap and disk-image verification overrides left by old tweak tools", "opt_legacy_overrides_audit", false),
-        ("Network Stack Refresh", "Flush routing table and ARP cache to resolve network issues", "opt_network_stack_optimize", true),
-        ("Permission Repair", "Fix user directory permission issues", "opt_disk_permissions_repair", false),
-        ("Spotlight Optimization", "Rebuild index if search is slow (smart detection)", "opt_spotlight_index_optimize", true),
-        ("Spotlight Orphan Rules", "Remove Spotlight search-rule entries for apps that are no longer installed", "opt_prune_spotlight_orphan_rules", false),
-        ("Periodic Maintenance", "Run macOS daily/weekly/monthly maintenance scripts if stale", "opt_periodic_maintenance", true),
-        ("Shared File Lists", "Repair corrupted Finder favorites and recent documents", "opt_shared_file_list_repair", false),
-        ("Disk Health", "Verify filesystem integrity", "opt_disk_verify", true),
-        ("Login Items", "Audit login items for broken entries", "opt_login_items_audit", false),
-        ("Quarantine Database Cleanup", "Clear Gatekeeper download tracking history", "opt_quarantine_cleanup", false),
-        ("Launch Agents Cleanup", "Report LaunchAgents whose binaries no longer exist", "opt_launch_agents_cleanup", false),
-        ("Notifications", "Clean old delivered notifications to reduce database bloat", "opt_notification_cleanup", false),
-        ("Usage Data", "Clean old usage tracking data", "opt_coreduet_cleanup", false),
+        ("DNS & Spotlight Check", "Clears cached hostname lookups and checks that Spotlight is still indexing", "opt_system_maintenance", true),
+        ("Finder Cache Refresh", "Rebuilds the Quick Look previews and icon cache Finder draws from", "opt_cache_refresh", false),
+        ("App State Cleanup", "Deletes window-restore data that apps saved more than 30 days ago", "opt_saved_state_cleanup", false),
+        ("Broken Config Repair", "Finds preference files that no longer open and repairs them", "opt_fix_broken_configs", false),
+        ("Network Cache Refresh", "Clears cached hostname lookups after you switch networks", "opt_network_optimization", true),
+        ("Database Optimization", "Compacts the Mail, Safari and Messages databases while those apps are closed", "opt_sqlite_vacuum", false),
+        ("Prevent Finder .DS_Store", "Keeps Finder from leaving .DS_Store files on network shares and USB drives", "opt_prevent_network_dsstore", false),
+        ("Legacy Overrides", "Turns App Nap and disk-image checks back on where old tweak tools disabled them", "opt_legacy_overrides_audit", false),
+        ("Network Stack Refresh", "Resets the routing table and ARP cache when connections misbehave", "opt_network_stack_optimize", true),
+        ("Permission Repair", "Restores the expected permissions on folders in your home directory", "opt_disk_permissions_repair", false),
+        ("Spotlight Optimization", "Rebuilds the Spotlight index, but only when searches look slow", "opt_spotlight_index_optimize", true),
+        ("Spotlight Orphan Rules", "Drops Spotlight search rules left behind by apps you deleted", "opt_prune_spotlight_orphan_rules", false),
+        ("Periodic Maintenance", "Runs the daily, weekly and monthly macOS scripts when they are overdue", "opt_periodic_maintenance", true),
+        ("Shared File Lists", "Fixes damaged Finder sidebar favorites and recent-item lists", "opt_shared_file_list_repair", false),
+        ("Disk Health", "Checks the startup disk's file system for errors", "opt_disk_verify", true),
+        ("Login Items", "Looks for login items that point to apps that are gone", "opt_login_items_audit", false),
+        ("Quarantine Database Cleanup", "Clears Gatekeeper's record of where downloaded files came from", "opt_quarantine_cleanup", false),
+        ("Launch Agents Cleanup", "Lists launch agents whose program no longer exists", "opt_launch_agents_cleanup", false),
+        ("Notifications", "Prunes old delivered notifications so their database stays small", "opt_notification_cleanup", false),
+        ("Usage Data", "Removes old app-usage history that macOS keeps for suggestions", "opt_coreduet_cleanup", false),
     ].map { OptTask(id: $0.0, name: $0.0, detail: $0.1, handler: $0.2, admin: $0.3) }
 
     var doneCount: Int { tasks.filter { $0.status == .done }.count }
