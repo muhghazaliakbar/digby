@@ -4,6 +4,8 @@ import SwiftUI
 @main
 struct DigbyApp: App {
     @State private var app = AppModel()
+    @AppStorage("showMenuBarExtra") private var showMenuBarExtra = true
+    @AppStorage("menuBarShowsFree") private var menuBarShowsFree = true
 
     init() {
         Fonts.register()
@@ -38,8 +40,20 @@ struct DigbyApp: App {
                 Button("Cancel Running Job") { app.cancelRunningJob() }
                     .keyboardShortcut(.escape, modifiers: [])
                 Divider()
+                Toggle("Show in Menu Bar", isOn: $showMenuBarExtra)
+                Toggle("Show Free Space in Menu Bar", isOn: $menuBarShowsFree)
+                    .disabled(!showMenuBarExtra)
+                Divider()
             }
         }
+
+        MenuBarExtra(isInserted: $showMenuBarExtra) {
+            MenuBarPanel()
+                .environment(app)
+        } label: {
+            MenuBarLabel(disk: app.disk, showsFree: menuBarShowsFree)
+        }
+        .menuBarExtraStyle(.window)
     }
 }
 

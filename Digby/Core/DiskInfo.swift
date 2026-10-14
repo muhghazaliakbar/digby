@@ -9,12 +9,24 @@ final class DiskInfo {
     /// True while the free-space label is counting to its new value (tints it green).
     private(set) var tweening = false
     private(set) var volumeName = "Macintosh HD"
-    private var tweenTask: Task<Void, Never>?
+    @ObservationIgnored private var tweenTask: Task<Void, Never>?
 
     var used: Double { max(0, total - free) }
     var usedFraction: Double { total > 0 ? used / total : 0 }
 
-    init() { refresh(animated: false) }
+    @ObservationIgnored private var monitor: Task<Void, Never>?
+
+    init() {
+        refresh(animated: false)
+        // Keeps the menu bar value current while the app is idle.
+        monitor = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(30))
+                guard let self else { return }
+                self.refresh()
+            }
+        }
+    }
 
     func refresh(animated: Bool = true) {
         let url = URL(fileURLWithPath: "/")

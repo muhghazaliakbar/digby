@@ -32,6 +32,8 @@ Sizes are Mole's `bytes_to_human` output, which uses decimal units (1 GB = 10⁹
 
 ## Design deviations
 
+- **Menu bar extra.** The reference has no mock-up for it, so the panel reuses the app's tokens and components. Quick clean shares the Clean module's state: a scan started from the menu bar shows up in the main window and the other way round.
+
 - **App icons.** Uninstall shows each app's real icon instead of the reference's coloured letter tiles, as the brief asks ("icon from bundle").
 - **Window chrome.** The real traffic lights are repositioned into the sidebar at the design's offsets instead of drawn ones.
 - **Optimize toggles.** Read-only (see above). The reference's 9 sample tasks are replaced with Mole's 20 real tasks.
@@ -43,12 +45,11 @@ Sizes are Mole's `bytes_to_human` output, which uses decimal units (1 GB = 10⁹
 ## Tests
 
 - `DigbyTests`: parsers for every command, JSON payloads, whitelist contents, formatting, treemap layout.
-- `DigbyUITests`: the Clean flow (scan, review, unchecking, select all/none, dry-run preview, real run, stop, empty result) against `fake-mo.sh`. The XCTest runner is sandboxed and cannot read the app's files, so checks go through the UI: the fake leaves whitelisted paths out of its totals, so the sizes Digby shows prove that exclusions reached Mole and that the whitelist was restored. Each run leaves an empty folder under `/tmp/digby-ui-*`.
+- `DigbyUITests`: the menu bar extra (free space, Quick clean, Review in Digby) and the Clean flow (scan, review, unchecking, select all/none, dry-run preview, real run, stop, empty result) against `fake-mo.sh`. The XCTest runner is sandboxed and cannot read the app's files, so checks go through the UI: the fake leaves whitelisted paths out of its totals, so the sizes Digby shows prove that exclusions reached Mole and that the whitelist was restored. Each run leaves an empty folder under `/tmp/digby-ui-*`.
 - On macOS, UI tests must use `click()`; `tap()` does not trigger SwiftUI buttons.
 
 The real Clean flow was also verified end to end against Mole 1.59.1 in dry-run mode.
 
 ## Not yet done
 
-- Menu bar extra (phase 2 in the brief).
 - Side-by-side screenshots against the design reference.
