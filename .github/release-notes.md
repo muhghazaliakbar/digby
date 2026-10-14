@@ -2,6 +2,14 @@
 
 ## Install
 
+With Homebrew (installs Mole too):
+
+```bash
+brew install --cask muhghazaliakbar/tap/digby
+```
+
+Or manually:
+
 1. Install Mole 1.59 or later: `brew install mole`
 2. Download **Digby-{{VERSION}}.dmg** below, open it, and drag **Digby** into **Applications**.
 <!-- unsigned -->

@@ -15,7 +15,7 @@ Clean caches, remove apps with their leftovers, and see what fills your disk, al
 [![License: MIT](https://img.shields.io/badge/License-MIT-FFB547)](LICENSE)
 [![CI](https://github.com/muhghazaliakbar/digby/actions/workflows/ci.yml/badge.svg)](https://github.com/muhghazaliakbar/digby/actions/workflows/ci.yml)
 
-[Features](#features) · [Download](#2-download-digby) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development) · [Support](#support)
+[Features](#features) · [Install](#2-install-digby) · [Getting started](#getting-started) · [How it works](#how-it-works) · [Safety](#safety) · [Development](#development) · [Support](#support)
 
 <br>
 
@@ -99,9 +99,15 @@ brew install mole
 
 No Homebrew? Use the install script from [Mole's README](https://github.com/tw93/mole#readme). If Digby can't find `mo`, it opens on a setup screen with both commands and a **Locate binary…** button.
 
-### 2. Download Digby
+### 2. Install Digby
 
-Grab **`Digby-x.y.z.dmg`** from the [latest release](https://github.com/muhghazaliakbar/digby/releases/latest), open it, and drag **Digby** into **Applications**. It is a universal app for Apple Silicon and Intel.
+With [Homebrew](https://brew.sh) (installs Mole too, if you skipped step 1):
+
+```bash
+brew install --cask muhghazaliakbar/tap/digby
+```
+
+Or download **`Digby-x.y.z.dmg`** from the [latest release](https://github.com/muhghazaliakbar/digby/releases/latest), open it, and drag **Digby** into **Applications**. It is a universal app for Apple Silicon and Intel.
 
 > [!IMPORTANT]
 > Digby is not notarized by Apple yet, so the first launch is blocked with *"Apple could not verify Digby…"*. To allow it once:
@@ -186,6 +192,8 @@ git tag v0.2.0 && git push origin v0.2.0
 The [Release workflow](.github/workflows/release.yml) builds a universal app, packages `Digby-<version>.dmg`, a `.zip` and `SHA256SUMS.txt`, and publishes them as a GitHub release with install notes and a changelog. Running the workflow by hand (Actions → Release → Run workflow) builds the packages without publishing.
 
 Releases are signed ad-hoc unless these repository secrets are set, in which case they are signed with a Developer ID and notarized: `MACOS_CERTIFICATE` (base64 `.p12`), `MACOS_CERTIFICATE_PASSWORD`, `MACOS_SIGN_IDENTITY`, `APPLE_ID`, `APPLE_TEAM_ID` and `APPLE_APP_PASSWORD`.
+
+After publishing, the workflow updates the [Homebrew cask](https://github.com/muhghazaliakbar/homebrew-tap/blob/main/Casks/digby.rb) when the `HOMEBREW_TAP_TOKEN` secret (a token that can push to `muhghazaliakbar/homebrew-tap`) is set. Without it, run `GH_TOKEN=… scripts/update-tap.sh <version>`; `scripts/cask.sh <version>` prints the cask.
 
 To package locally, run `scripts/release.sh` (output in `dist/`).
 
